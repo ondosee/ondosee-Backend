@@ -31,10 +31,9 @@ dependencies {
 
 dependencyManagement {
 	imports {
-		mavenBom("org.springframework.cloud:spring-cloud-dependencies:Hoxton.SR9")
+		mavenBom("org.springframework.cloud:spring-cloud-dependencies:2021.0.5")
 	}
 }
-
 kotlin {
 	compilerOptions {
 		freeCompilerArgs.addAll("-Xjsr305=strict")
