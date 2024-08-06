@@ -17,7 +17,7 @@ class LocationController(
     @GetMapping("/coordinate")
     fun searchLocationsByKeyword(
         @RequestParam keyword: String,
-        @RequestParam(required = false) page: Int = 1
+        @RequestParam(required = false, defaultValue = "1") page: Int
     ): ResponseEntity<SearchLocationsByKeywordResponseData> =
         locationService.searchLocationsByKeyword(keyword, page)
             .run(ResponseEntity.status(HttpStatus.OK)::body)
