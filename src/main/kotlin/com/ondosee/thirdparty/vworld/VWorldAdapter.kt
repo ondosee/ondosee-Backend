@@ -21,7 +21,7 @@ class VWorldAdapter(
             category = "L4",
             request = "search",
             key = vWorldProperties.key
-        )
+        ).response
 
         if(webResponse.status == ResponseStatus.ERROR){
             webResponse.error!!.run {
