@@ -14,6 +14,7 @@ interface VWorldClient {
     fun searchDistrict(
         @RequestParam query: String,
         @RequestParam size: Int,
+        @RequestParam page: Int,
         @RequestParam type: String,
         @RequestParam category: String,
         @RequestParam request: String,
