@@ -38,7 +38,7 @@ class ExceptionFilter : OncePerRequestFilter() {
                 }
                 else -> {
                     log.error("Internal Exception :: message = {}, Status = {}", e.message, ErrorStatus.INTERNAL_SERVER_ERROR)
-                    sendError(response, ErrorResponse.of(InternalServerErrorException(e.message.toString(), "서버 에러")))
+                    sendError(response, ErrorResponse.of(InternalServerErrorException("서버 에러", e.message.toString())))
                 }
             }
         }

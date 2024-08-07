@@ -1,12 +1,15 @@
-package com.ondosee.thirdparty.vworld.data
+package com.ondosee.thirdparty.vworld.data.web
 
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 
-data class Record @JsonCreator constructor(
+data class Page @JsonCreator constructor(
     @JsonProperty("total")
     val total: Int,
 
     @JsonProperty("current")
-    val current: Int
+    val current: Int,
+
+    @JsonProperty("size")
+    val size: Int
 )

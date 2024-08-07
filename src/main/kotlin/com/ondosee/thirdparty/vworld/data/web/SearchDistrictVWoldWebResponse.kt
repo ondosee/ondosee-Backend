@@ -1,4 +1,4 @@
-package com.ondosee.thirdparty.vworld.data
+package com.ondosee.thirdparty.vworld.data.web
 
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
