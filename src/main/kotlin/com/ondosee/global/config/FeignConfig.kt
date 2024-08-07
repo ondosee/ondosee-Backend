@@ -8,7 +8,7 @@ import feign.codec.Encoder;
 import feign.jackson.JacksonDecoder;
 import feign.jackson.JacksonEncoder;
 
-@EnableFeignClients
+@EnableFeignClients(basePackages = ["com.ondosee"])
 @Configuration
 class FeignConfig {
 
