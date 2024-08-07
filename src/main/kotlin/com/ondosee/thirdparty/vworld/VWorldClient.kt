@@ -1,7 +1,6 @@
 package com.ondosee.thirdparty.vworld
 
-import com.ondosee.thirdparty.vworld.data.SearchDistrictVWoldWebResponse
-import com.ondosee.thirdparty.vworld.data.SearchDistrictWebResponse
+import com.ondosee.thirdparty.vworld.data.web.SearchDistrictVWoldWebResponse
 import org.springframework.cloud.openfeign.FeignClient
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestParam

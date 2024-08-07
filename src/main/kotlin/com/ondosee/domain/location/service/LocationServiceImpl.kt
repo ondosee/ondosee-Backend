@@ -20,7 +20,7 @@ class LocationServiceImpl(
             )
         }
 
-        val locations = districts.result.items.map { location ->
+        val locations = districts.result.map { location ->
             SearchLocationResponseData(
                 title = location.title,
                 x = location.point.x,
