@@ -1,10 +1,11 @@
-package com.ondosee.thirdparty.vworld.properties
+package com.ondosee.global.config.properties
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.context.properties.ConstructorBinding
 
-@ConfigurationProperties(prefix = "vworld")
+@ConfigurationProperties(prefix = "spring.redis")
 @ConstructorBinding
-data class VWorldProperties(
-    val key: String
+data class RedisProperties(
+    val host: String,
+    val port: Int
 )

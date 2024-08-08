@@ -30,6 +30,7 @@ dependencies {
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.15.0")
 	implementation("io.github.openfeign:feign-core:11.8")
 	implementation("io.github.openfeign:feign-jackson:11.8")
+	implementation("org.springframework.boot:spring-boot-starter-data-redis")
 }
 
 dependencyManagement {
