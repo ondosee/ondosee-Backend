@@ -1,6 +1,9 @@
 spring:
   application:
     name: ondosee
+  redis:
+    host: localhost
+    port: 6379
 
 vworld:
   key: ${VWORLD_KEY}
