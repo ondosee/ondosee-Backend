@@ -2,10 +2,11 @@ package com.ondosee.thirdparty.vworld
 
 import com.ondosee.common.spi.LocationPort
 import com.ondosee.global.error.exception.ThirdPartyException
+import com.ondosee.thirdparty.vworld.client.VWorldClient
 import com.ondosee.thirdparty.vworld.data.enums.ResponseStatus
 import com.ondosee.thirdparty.vworld.data.res.SearchDistrictResponseData
-import com.ondosee.thirdparty.vworld.mapper.toResponse
-import com.ondosee.thirdparty.vworld.properties.VWorldProperties
+import com.ondosee.thirdparty.vworld.data.mapper.toResponse
+import com.ondosee.thirdparty.vworld.data.properties.VWorldProperties
 import org.springframework.context.annotation.Configuration
 
 @Configuration

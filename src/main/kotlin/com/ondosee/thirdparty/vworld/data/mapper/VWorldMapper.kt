@@ -1,4 +1,4 @@
-package com.ondosee.thirdparty.vworld.mapper
+package com.ondosee.thirdparty.vworld.data.mapper
 
 import com.ondosee.thirdparty.vworld.data.res.PageResponseData
 import com.ondosee.thirdparty.vworld.data.res.PointResponseData

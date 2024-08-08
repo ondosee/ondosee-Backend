@@ -1,4 +1,4 @@
-package com.ondosee.thirdparty.vworld
+package com.ondosee.thirdparty.vworld.client
 
 import com.ondosee.thirdparty.vworld.data.web.SearchDistrictVWoldWebResponse
 import org.springframework.cloud.openfeign.FeignClient
