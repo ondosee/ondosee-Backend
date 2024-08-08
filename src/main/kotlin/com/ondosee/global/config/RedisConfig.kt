@@ -1,5 +1,6 @@
 package com.ondosee.global.config
 
+import com.ondosee.common.cache.CacheKeyUtil
 import com.ondosee.global.config.properties.RedisProperties
 import org.springframework.cache.CacheManager
 import org.springframework.cache.annotation.CachingConfigurer
@@ -47,5 +48,10 @@ class RedisConfig(
             .fromConnectionFactory(connectionFactory)
             .cacheDefaults(redisCacheConfiguration)
             .build()
+    }
+
+    @Bean
+    fun cacheKeyUtil(): CacheKeyUtil {
+        return CacheKeyUtil
     }
 }

@@ -14,6 +14,7 @@ class VWorldAdapter(
     private val vWorldClient: VWorldClient,
     private val vWorldProperties: VWorldProperties
 ) : LocationPort {
+
     override fun searchDistricts(query: String, page: Int): SearchDistrictResponseData {
 
         val webResponse = vWorldClient.searchDistrict(

@@ -1,6 +1,7 @@
 package com.ondosee.thirdparty.vworld.client
 
 import com.ondosee.thirdparty.vworld.data.web.SearchDistrictVWoldWebResponse
+import org.springframework.cache.annotation.Cacheable
 import org.springframework.cloud.openfeign.FeignClient
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestParam
@@ -10,6 +11,18 @@ import org.springframework.web.bind.annotation.RequestParam
     url = "https://api.vworld.kr"
 )
 interface VWorldClient {
+
+    companion object {
+        fun generateCacheKey(query: String, page:Int): String {
+            return "$query-$page"
+        }
+    }
+
+    @Cacheable(
+        value = ["SearchDistrictVWoldWebResponse"],
+        key = "@cacheKeyUtil.generateCacheKey(#query, #page)",
+        cacheManager = "redisCacheManager"
+    )
     @GetMapping(value = ["/req/search"])
     fun searchDistrict(
         @RequestParam query: String,
@@ -21,3 +34,4 @@ interface VWorldClient {
         @RequestParam key: String
     ): SearchDistrictVWoldWebResponse
 }
+
