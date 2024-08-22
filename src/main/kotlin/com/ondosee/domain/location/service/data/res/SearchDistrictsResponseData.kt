@@ -2,7 +2,7 @@ package com.ondosee.domain.location.service.data.res
 
 import com.ondosee.thirdparty.vworld.data.enums.ResponseStatus
 
-data class SearchDistrictResponseData(
+data class SearchDistrictsResponseData(
     val status: ResponseStatus,
     val page: PageResponseData,
     val result: List<ResultResponseData>

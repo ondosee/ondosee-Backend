@@ -1,14 +1,14 @@
 package com.ondosee.thirdparty.vworld.data.mapper
 
 
-import com.ondosee.domain.location.service.data.res.SearchDistrictResponseData
-import com.ondosee.domain.location.service.data.res.SearchDistrictResponseData.*
+import com.ondosee.domain.location.service.data.res.SearchDistrictsResponseData
+import com.ondosee.domain.location.service.data.res.SearchDistrictsResponseData.*
 import com.ondosee.thirdparty.vworld.data.web.Page
 import com.ondosee.thirdparty.vworld.data.web.Point
 import com.ondosee.thirdparty.vworld.data.web.SearchDistrictResultWebResponse
 import com.ondosee.thirdparty.vworld.data.web.SearchDistrictVWoldWebResponse
 
-fun SearchDistrictVWoldWebResponse.toResponse() = SearchDistrictResponseData(
+fun SearchDistrictVWoldWebResponse.toResponse() = SearchDistrictsResponseData(
     status = response.status,
     page = response.page!!.toResponse(),
     result = response.result?.toResponse() ?: listOf()
