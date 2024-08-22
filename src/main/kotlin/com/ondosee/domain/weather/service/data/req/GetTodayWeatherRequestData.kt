@@ -1,7 +1,7 @@
 package com.ondosee.domain.weather.service.data.req
 
 data class GetTodayWeatherRequestData(
-    val nx: Int,
-    val ny: Int,
+    val x: Int,
+    val y: Int,
     val location: String
 )
