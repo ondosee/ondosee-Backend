@@ -1,6 +1,7 @@
 package com.ondosee.thirdparty.vworld
 
 import com.ondosee.common.spi.LocationPort
+import com.ondosee.domain.location.service.data.req.SearchDistrictsRequestData
 import com.ondosee.global.error.exception.ThirdPartyException
 import com.ondosee.thirdparty.vworld.client.VWorldClient
 import com.ondosee.thirdparty.vworld.data.enums.ResponseStatus
@@ -15,12 +16,12 @@ class VWorldAdapter(
     private val vWorldProperties: VWorldProperties
 ) : LocationPort {
 
-    override fun searchDistricts(query: String, page: Int): SearchDistrictsResponseData {
+    override fun searchDistricts(request: SearchDistrictsRequestData): SearchDistrictsResponseData {
 
         val webResponse = vWorldClient.searchDistrict(
-            query = query,
+            query = request.query,
             size = 30,
-            page = page,
+            page = request.page,
             type = "DISTRICT",
             category = "L4",
             request = "search",
