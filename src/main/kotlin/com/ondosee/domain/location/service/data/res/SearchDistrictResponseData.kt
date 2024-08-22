@@ -1,4 +1,4 @@
-package com.ondosee.thirdparty.vworld.data.res
+package com.ondosee.domain.location.service.data.res
 
 import com.ondosee.thirdparty.vworld.data.enums.ResponseStatus
 
