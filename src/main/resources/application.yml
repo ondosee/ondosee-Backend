@@ -7,3 +7,6 @@ spring:
 
 vworld:
   key: ${VWORLD_KEY}
+
+dataporter:
+  key: ${DATAPORTER_KEY}
