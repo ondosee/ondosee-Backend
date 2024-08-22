@@ -11,13 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam
     url = "https://api.vworld.kr"
 )
 interface VWorldClient {
-
-    companion object {
-        fun generateCacheKey(query: String, page:Int): String {
-            return "$query-$page"
-        }
-    }
-
     @Cacheable(
         value = ["SearchDistrictVWoldWebResponse"],
         key = "@cacheKeyUtil.generateCacheKey(#query, #page)",
