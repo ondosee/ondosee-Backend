@@ -1,9 +1,8 @@
 package com.ondosee.thirdparty.vworld.data.mapper
 
-import com.ondosee.domain.location.service.data.res.PageResponseData
-import com.ondosee.domain.location.service.data.res.PointResponseData
-import com.ondosee.domain.location.service.data.res.ResultResponseData
+
 import com.ondosee.domain.location.service.data.res.SearchDistrictResponseData
+import com.ondosee.domain.location.service.data.res.SearchDistrictResponseData.*
 import com.ondosee.thirdparty.vworld.data.web.Page
 import com.ondosee.thirdparty.vworld.data.web.Point
 import com.ondosee.thirdparty.vworld.data.web.SearchDistrictResultWebResponse
