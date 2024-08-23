@@ -12,8 +12,7 @@ enum class Element(
     TEMPERATURE_FOR_1_HOUR("1시간 기온"),
     LOWEST_DAILY_TEMPERATURE("일 최저기온"),
     HIGHEST_DAILY_TEMPERATURE("일 최고기온"),
-    EW_WIND_SPEED("풍속(동서성분)"),
-    NS_WIND_SPEED("풍속(남북성분)"),
+    WIND_SPEED("풍속"),
     PARTICULATE_MATTER_10("미세먼지"),
     PARTICULATE_MATTER_25("초미세먼지")
 }
