@@ -33,7 +33,7 @@ fun GetTodayWeatherDataPorterWebResponse.toResponse(): List<GetTodayWeatherRespo
                             time = LocalTime.parse(value.fcstTime, ofPattern("HHmm")),
                             value = value.fcstValue.toLong()
                         )
-                    }
+                    }.sortedBy { it.time }
                 )
             }
         }
