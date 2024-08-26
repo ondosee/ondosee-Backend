@@ -31,7 +31,7 @@ fun GetTodayWeatherDataPorterWebResponse.toResponse(): List<GetTodayWeatherRespo
                     value = unit.value.map { value ->
                         TimeZoneResponseData(
                             time = LocalTime.parse(value.fcstTime, ofPattern("HHmm")),
-                            value = value.fcstValue.toLong()
+                            value = if(value.fcstValue == "강수없음" || value.fcstValue == "적설없음") 0L else value.fcstValue.toLong()
                         )
                     }.sortedBy { it.time }
                 )
