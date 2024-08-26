@@ -4,6 +4,7 @@ enum class ResultMsg(
     val status: Int
 ) {
     NORMAL_SERVICE(200),
+    NO_DATA(404),
     UNKNOWN_ERROR(500),
     APPLICATION_ERROR(500),
     DB_ERROR(500),
