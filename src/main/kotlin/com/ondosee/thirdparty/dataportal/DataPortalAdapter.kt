@@ -37,7 +37,7 @@ class DataPortalAdapter(
             request.y
         )
 
-        val baseDate = LocalDate.now().run { "${String.format("%2d", monthValue)}${String.format("%2d", dayOfMonth)}" }
+        val baseDate = LocalDate.now().minusDays(1).run { "$year${String.format("%02d", monthValue)}${String.format("%02d", dayOfMonth)}" }
 
         val webResponse = dataPortalClient.getTodayWeathers(
             nx = nx,
@@ -46,7 +46,7 @@ class DataPortalAdapter(
             dataType = "JSON",
             base_date = baseDate,
             base_time = "2300",
-            numOfRows = 290,
+            numOfRows = 12,
             pageNo = 1
         )
 
