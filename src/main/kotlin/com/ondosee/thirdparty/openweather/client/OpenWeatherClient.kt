@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam
     url = "http://api.openweathermap.org"
 )
 interface OpenWeatherClient {
-    @GetMapping("data/2.5/air quality/history")
+    @GetMapping("/data/2.5/air_pollution/history")
     fun getTodayAirQuality(
         @RequestParam lat: Double,
         @RequestParam lon: Double,
