@@ -1,6 +1,9 @@
 package com.ondosee.domain.weather.service
 
+import com.ondosee.common.spi.AirQualityPort
 import com.ondosee.common.spi.WeatherPort
+import com.ondosee.domain.airquality.service.data.req.GetTodayAirQualityRequestData
+import com.ondosee.domain.airquality.service.data.res.GetTodayAirQualityResponseData
 import com.ondosee.domain.weather.presentation.data.enums.Significant
 import com.ondosee.domain.weather.presentation.data.req.QueryTodayWeatherSignificantRequestData
 import com.ondosee.domain.weather.presentation.data.res.QueryTodayWeatherSignificantResponseData
@@ -13,7 +16,8 @@ import org.springframework.stereotype.Service
 
 @Service
 class WeatherServiceImpl(
-    private val weatherPort: WeatherPort
+    private val weatherPort: WeatherPort,
+    private val airQualityPort: AirQualityPort
 ) : WeatherService {
     override fun queryTodayWeatherSignificant(request: QueryTodayWeatherSignificantRequestData): QueryTodayWeatherSignificantResponseData {
         val weather = GetTodayWeatherRequestData(
@@ -67,6 +71,39 @@ class WeatherServiceImpl(
                 ).run(significant::add)
         }
 
+        val airQuality = GetTodayAirQualityRequestData(
+            x = request.x,
+            y = request.y
+        ).run(airQualityPort::getTodayAirQuality)
+
+        val pm10 = airQuality.find { it.element == Element.PARTICULATE_MATTER_10 }!!
+        val pm10Max = pm10.value.maxBy { it.value }.value
+
+        when{
+            pm10Max <= 15 -> Significant.BEST10
+            pm10Max <= 30 -> Significant.GOOD10
+            pm10Max <= 40 -> Significant.FAIR10
+            pm10Max <= 50 -> Significant.AVERAGE10
+            pm10Max <= 75 -> Significant.POOR10
+            pm10Max <= 100 -> Significant.BAD10
+            else -> Significant.WORST10
+        }.let { pm10.toResponse(it) }
+         .run(significant::add)
+
+        val pm25 = airQuality.find { it.element == Element.PARTICULATE_MATTER_25 }!!
+        val pm25Max = pm25.value.maxBy { it.value }.value
+
+        when{
+            pm25Max <= 7 -> Significant.BEST25
+            pm25Max <= 15 -> Significant.GOOD25
+            pm25Max <= 20 -> Significant.FAIR25
+            pm25Max <= 25 -> Significant.AVERAGE25
+            pm25Max <= 38 -> Significant.POOR25
+            pm25Max <= 50 -> Significant.BAD25
+            else -> Significant.WORST25
+        }.let { pm25.toResponse(it) }
+         .run(significant::add)
+
         val response = QueryTodayWeatherSignificantResponseData(
             weathers = significant,
         )
@@ -79,6 +116,20 @@ class WeatherServiceImpl(
             significant = significant,
             timeZone = value.toResponse()
         )
+
+    private fun GetTodayAirQualityResponseData.toResponse(significant: Significant) =
+        SignificantResponseData(
+            significant = significant,
+            timeZone = value.toResponse()
+        )
+
+    private fun List<GetTodayAirQualityResponseData.TimeZoneResponseData>.toResponse() =
+        map {
+            TimeZoneResponseData(
+                time = it.time,
+                value = "${it.value}"
+            )
+        }
 
     private fun List<GetTodayWeatherResponseData.TimeZoneResponseData>.toResponse() =
         map {

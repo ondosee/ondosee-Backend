@@ -10,3 +10,6 @@ vworld:
 
 dataporter:
   key: ${DATAPORTER_KEY}
+
+openweather:
+  key: ${OPENWATER_KEY}
