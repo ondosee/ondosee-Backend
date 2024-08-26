@@ -7,7 +7,6 @@ import com.ondosee.thirdparty.openweather.data.web.GetTodayAirQualityOpenWeather
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
-import java.util.*
 
 fun GetTodayAirQualityOpenWeatherWebResponse.toResponse(): List<GetTodayAirQualityResponseData> {
     val pm25 = mutableListOf<TimeZoneResponseData>()
@@ -32,11 +31,11 @@ fun GetTodayAirQualityOpenWeatherWebResponse.toResponse(): List<GetTodayAirQuali
     return listOf(
         GetTodayAirQualityResponseData(
             element = Element.PARTICULATE_MATTER_10,
-            value = pm10.sortedBy { it.time }
+            value = pm10
         ),
         GetTodayAirQualityResponseData(
             element = Element.PARTICULATE_MATTER_25,
-            value = pm25.sortedBy { it.time }
+            value = pm25
         )
     )
 }
