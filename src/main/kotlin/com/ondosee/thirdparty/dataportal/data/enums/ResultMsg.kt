@@ -3,6 +3,7 @@ package com.ondosee.thirdparty.dataportal.data.enums
 enum class ResultMsg(
     val status: Int
 ) {
+    NORMAL_SERVICE(200),
     UNKNOWN_ERROR(500),
     APPLICATION_ERROR(500),
     DB_ERROR(500),
@@ -19,5 +20,4 @@ enum class ResultMsg(
     DEADLINE_HAS_EXPIRED_ERROR(401),
     UNREGISTERED_IP_ERROR(401),
     UNSIGNED_CALL_ERROR(401)
-
 }
