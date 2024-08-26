@@ -5,7 +5,6 @@ import com.ondosee.domain.weather.service.data.res.GetTodayWeatherResponseData
 import com.ondosee.domain.weather.service.data.res.GetTodayWeatherResponseData.TimeZoneResponseData
 import com.ondosee.thirdparty.dataportal.data.enums.Category
 import com.ondosee.thirdparty.dataportal.data.web.GetTodayWeatherDataPorterWebResponse
-import java.lang.Long.valueOf
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter.ofPattern
 
@@ -34,7 +33,7 @@ fun GetTodayWeatherDataPorterWebResponse.toResponse(): List<GetTodayWeatherRespo
                             Element.PRECIPITATION_IN_1_HOUR -> {
                                 when(value.fcstValue){
                                     "강수없음" -> "0.0"
-                                    "1.0mm 미만" -> "0.1"
+                                    "1mm 미만" -> "0.1"
                                     "30.0mm~50.0mm" -> "30.0"
                                     "50.0mm 이상" -> "50.0"
                                     else -> value.fcstValue.substring(0, value.fcstValue.length - 2)
