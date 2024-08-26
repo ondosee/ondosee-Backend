@@ -46,7 +46,7 @@ class DataPortalAdapter(
             dataType = "JSON",
             base_date = baseDate,
             base_time = "2300",
-            numOfRows = 12,
+            numOfRows = 290,
             pageNo = 1
         )
 
