@@ -8,6 +8,7 @@ import com.ondosee.thirdparty.dataportal.client.DataPortalClient
 import com.ondosee.thirdparty.dataportal.data.mapper.toResponse
 import com.ondosee.thirdparty.dataportal.data.properties.DataPorterProperties
 import org.springframework.stereotype.Component
+import java.lang.Math.PI
 import java.time.LocalDate
 import kotlin.math.*
 
@@ -21,7 +22,7 @@ class DataPortalAdapter(
         const val XO = 43
         const val YO = 136
 
-        const val DEGRAD = Math.PI / 180.0
+        const val DEGRAD = PI / 180.0
 
         const val RE = 6371.00877 / 5.0
         const val SLAT1 = 30.0 * DEGRAD
@@ -32,8 +33,8 @@ class DataPortalAdapter(
 
     override fun getTodayWeather(request: GetTodayWeatherRequestData): List<GetTodayWeatherResponseData> {
         val (nx, ny) = toNXY(
-            request.x.toDouble(),
-            request.y.toDouble()
+            request.x,
+            request.y
         )
 
         val baseDate = LocalDate.now().run { "${String.format("%2d", monthValue)}${String.format("%2d", dayOfMonth)}" }
@@ -58,26 +59,26 @@ class DataPortalAdapter(
     }
 
     private fun toNXY(x: Double, y: Double): List<Int> {
-        val sn = (tan(Math.PI * 0.25 + SLAT2 * 0.5) / tan(Math.PI * 0.25 + SLAT1 * 0.5))
+        val sn = (tan(PI * 0.25 + SLAT2 * 0.5) / tan(PI * 0.25 + SLAT1 * 0.5))
             .let { ln(cos(SLAT1) / cos(SLAT2)) / ln(it) }
 
-        val sf = tan(Math.PI * 0.25 + SLAT1 * 0.5)
+        val sf = tan(PI * 0.25 + SLAT1 * 0.5)
             .run { pow(sn) * cos(SLAT1) / sn }
 
-        val ro = tan(Math.PI * 0.25 + OLAT * 0.5)
+        val ro = tan(PI * 0.25 + OLAT * 0.5)
             .run { RE * sf / pow(sn) }
 
-        val ra = tan(Math.PI * 0.25 + x * DEGRAD * 0.5)
+        val ra = tan(PI * 0.25 + y * DEGRAD * 0.5)
             .run { RE * sf / pow(sn) }
 
-        var theta = y * DEGRAD - OLON
-        if (theta > Math.PI) theta -= 2.0 * Math.PI
-        if (theta < -Math.PI) theta += 2.0 * Math.PI
+        var theta = x * DEGRAD - OLON
+        if (theta > PI) theta -= 2.0 * PI
+        if (theta < -PI) theta += 2.0 * PI
         theta *= sn
 
-        val nx = floor(ra * sin(theta) + XO + 0.5).toInt()
-        val ny = floor(ro - ra * cos(theta) + YO + 0.5).toInt()
+        val nx = floor(ra * sin(theta) + XO + 0.5)
+        val ny = floor(ro - ra * cos(theta) + YO + 0.5)
 
-        return listOf(nx, ny)
+        return listOf(nx.toInt(), ny.toInt())
     }
 }

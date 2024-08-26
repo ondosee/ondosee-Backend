@@ -10,7 +10,7 @@ data class GetTodayWeatherDataPorterWebResponse @JsonCreator constructor(
 ) {
     data class GetTodayWeather @JsonCreator constructor(
         @JsonProperty("header") val header: Header,
-        @JsonProperty("Body") val body: Body
+        @JsonProperty("Body") val body: Body?
     )
 
     data class Header @JsonCreator constructor(
@@ -22,7 +22,7 @@ data class GetTodayWeatherDataPorterWebResponse @JsonCreator constructor(
         @JsonProperty("dataType") val dataType: String,
         @JsonProperty("pageNo") val pageNo: Int,
         @JsonProperty("numOfRows") val numOfRows: Int,
-        @JsonProperty val totalCount: Int,
+        @JsonProperty("totalCount") val totalCount: Int,
         @JsonProperty("items") val itemList: ItemList
     )
 

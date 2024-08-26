@@ -9,7 +9,7 @@ import java.time.LocalTime
 import java.time.format.DateTimeFormatter.ofPattern
 
 fun GetTodayWeatherDataPorterWebResponse.toResponse(): List<GetTodayWeatherResponseData> =
-    response.body
+    response.body!!
         .itemList.item
         .groupBy { it.category }
         .mapNotNull { unit ->
