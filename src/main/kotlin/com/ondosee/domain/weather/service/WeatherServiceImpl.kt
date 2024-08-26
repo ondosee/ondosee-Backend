@@ -27,13 +27,12 @@ class WeatherServiceImpl(
 
         val significant = weather.mapNotNull { unit ->
             when (unit.element) {
-                Element.HIGHEST_DAILY_TEMPERATURE -> {
-                    takeIf { unit.value.any { it.value >= 33L } }
-                        ?.let { Significant.HEAT_WAVE }
-                }
-                Element.LOWEST_DAILY_TEMPERATURE -> {
-                    takeIf { unit.value.any { it.value <= 10L } }
-                        ?.let { Significant.COLD_WAVE }
+                Element.TEMPERATURE_FOR_1_HOUR -> {
+                    if(unit.value.any { it.value >= 33L })
+                        Significant.HEAT_WAVE
+                    else if(unit.value.any { it.value <= 10L})
+                        Significant.COLD_WAVE
+                    else null
                 }
                 Element.HUMIDITY -> {
                     takeIf { unit.value.any { it.value >= 35L } }
@@ -55,7 +54,7 @@ class WeatherServiceImpl(
             }?.let { unit.toResponse(it) }
         }.toMutableList()
 
-        if(precipitationProbability?.any { it.value >= 65L } == true) {
+        if(precipitationProbability?.any { it.value >= 40L } == true) {
             if(sky?.any { it.value == 1L || it.value == 2L || it.value == 4L } == true)
                 SignificantResponseData(
                     significant = Significant.RAIN,
