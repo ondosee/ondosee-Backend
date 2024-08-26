@@ -8,7 +8,7 @@ data class GetTodayAirQualityOpenWeatherWebResponse @JsonCreator constructor(
 ) {
     data class GetTimeAirQualityWebResponse @JsonCreator constructor(
         @JsonProperty("components") val components: Components,
-        @JsonProperty("dt") val timestamp: String
+        @JsonProperty("dt") val timestamp: Long
     )
 
     data class Components @JsonCreator constructor(

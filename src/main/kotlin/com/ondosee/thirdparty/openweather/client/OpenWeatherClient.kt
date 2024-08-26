@@ -14,8 +14,8 @@ interface OpenWeatherClient {
     fun getTodayAirQuality(
         @RequestParam lat: Double,
         @RequestParam lon: Double,
-        @RequestParam start: String,
-        @RequestParam end: String,
+        @RequestParam start: Long,
+        @RequestParam end: Long,
         @RequestParam appid: String,
     ): GetTodayAirQualityOpenWeatherWebResponse
 }

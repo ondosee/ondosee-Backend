@@ -7,8 +7,6 @@ import com.ondosee.domain.airquality.service.data.res.GetTodayAirQualityResponse
 import com.ondosee.domain.weather.presentation.data.enums.Significant
 import com.ondosee.domain.weather.presentation.data.req.QueryTodayWeatherSignificantRequestData
 import com.ondosee.domain.weather.presentation.data.res.QueryTodayWeatherSignificantResponseData
-import com.ondosee.domain.weather.presentation.data.res.QueryTodayWeatherSignificantResponseData.SignificantResponseData
-import com.ondosee.domain.weather.presentation.data.res.QueryTodayWeatherSignificantResponseData.TimeZoneResponseData
 import com.ondosee.domain.weather.service.data.enums.Element
 import com.ondosee.domain.weather.service.data.req.GetTodayWeatherRequestData
 import com.ondosee.domain.weather.service.data.res.GetTodayWeatherResponseData
@@ -60,14 +58,24 @@ class WeatherServiceImpl(
 
         if(precipitationProbability?.any { it.value >= 40L } == true) {
             if(sky?.any { it.value == 1L || it.value == 2L || it.value == 4L } == true)
-                SignificantResponseData(
+                QueryTodayWeatherSignificantResponseData.SignificantResponseData(
                     significant = Significant.RAIN,
-                    timeZone = precipitationProbability!!.toResponse()
+                    timeZone = precipitationProbability!!.map {
+                        QueryTodayWeatherSignificantResponseData.TimeZoneResponseData(
+                            time = it.time,
+                            value = "${it.value}"
+                        )
+                    }
                 ).run(significant::add)
             if(sky?.any { it.value == 2L || it.value == 3L } == true)
-                SignificantResponseData(
+                QueryTodayWeatherSignificantResponseData.SignificantResponseData(
                     significant = Significant.SNOW,
-                    timeZone = precipitationProbability!!.toResponse()
+                    timeZone = precipitationProbability!!.map {
+                        QueryTodayWeatherSignificantResponseData.TimeZoneResponseData(
+                            time = it.time,
+                            value = "${it.value}"
+                        )
+                    }
                 ).run(significant::add)
         }
 
@@ -112,30 +120,24 @@ class WeatherServiceImpl(
     }
 
     private fun GetTodayWeatherResponseData.toResponse(significant: Significant) =
-        SignificantResponseData(
+        QueryTodayWeatherSignificantResponseData.SignificantResponseData(
             significant = significant,
-            timeZone = value.toResponse()
+            timeZone = value.map {
+                QueryTodayWeatherSignificantResponseData.TimeZoneResponseData(
+                    time = it.time,
+                    value = "${it.value}"
+                )
+            }
         )
 
-    private fun GetTodayAirQualityResponseData.toResponse(significant: Significant) =
-        SignificantResponseData(
+    private fun  GetTodayAirQualityResponseData.toResponse(significant: Significant) =
+        QueryTodayWeatherSignificantResponseData.SignificantResponseData(
             significant = significant,
-            timeZone = value.toResponse()
+            timeZone = value.map {
+                QueryTodayWeatherSignificantResponseData.TimeZoneResponseData(
+                    time = it.time,
+                    value = "${it.value}"
+                )
+            }
         )
-
-    private fun List<GetTodayAirQualityResponseData.TimeZoneResponseData>.toResponse() =
-        map {
-            TimeZoneResponseData(
-                time = it.time,
-                value = "${it.value}"
-            )
-        }
-
-    private fun List<GetTodayWeatherResponseData.TimeZoneResponseData>.toResponse() =
-        map {
-            TimeZoneResponseData(
-                time = it.time,
-                value = "${it.value}"
-            )
-        }
 }

@@ -4,19 +4,27 @@ import com.ondosee.domain.airquality.service.data.res.GetTodayAirQualityResponse
 import com.ondosee.domain.airquality.service.data.res.GetTodayAirQualityResponseData.TimeZoneResponseData
 import com.ondosee.domain.weather.service.data.enums.Element
 import com.ondosee.thirdparty.openweather.data.web.GetTodayAirQualityOpenWeatherWebResponse
-import java.sql.Timestamp
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.util.*
 
 fun GetTodayAirQualityOpenWeatherWebResponse.toResponse(): List<GetTodayAirQualityResponseData> {
     val pm25 = mutableListOf<TimeZoneResponseData>()
     val pm10 = mutableListOf<TimeZoneResponseData>()
 
     list.map {
+
+        val time = LocalDateTime.ofInstant(Instant.ofEpochSecond(it.timestamp),
+            ZoneId.systemDefault()).toLocalTime()
+
         TimeZoneResponseData(
-            time = Timestamp.valueOf(it.timestamp).toLocalTime(),
+            time = time,
             value = it.components.pm10
         ).run(pm10::add)
+
         TimeZoneResponseData(
-            time = Timestamp.valueOf(it.timestamp).toLocalTime(),
+            time = time,
             value = it.components.pm25
         ).run(pm25::add)
     }
@@ -32,5 +40,3 @@ fun GetTodayAirQualityOpenWeatherWebResponse.toResponse(): List<GetTodayAirQuali
         )
     )
 }
-
-private fun Timestamp.toLocalTime() = this.toLocalDateTime().toLocalTime()
