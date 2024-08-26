@@ -8,7 +8,7 @@ import com.ondosee.thirdparty.openweather.data.properties.OpenWeatherProperties
 import com.ondosee.thirdparty.openweather.mapper.toResponse
 import org.springframework.stereotype.Component
 import java.sql.Timestamp
-import java.time.LocalDate
+import java.time.LocalDateTime
 
 @Component
 class OpenWeatherAdapter(
@@ -16,13 +16,17 @@ class OpenWeatherAdapter(
     private val openWeatherProperties: OpenWeatherProperties
 ) : AirQualityPort {
     override fun getTodayAirQuality(request: GetTodayAirQualityRequestData): List<GetTodayAirQualityResponseData> {
-        val today = LocalDate.now()
+        val startDay = LocalDateTime.now().minusHours(9).toLocalDate()
+            .run { Timestamp.valueOf(atStartOfDay()).time.toString().substring(0 ..< 10) }
+
+        val endDay = LocalDateTime.now().plusDays(1).minusHours(8).toLocalDate()
+            .run { Timestamp.valueOf(atStartOfDay()).time.toString().substring(0 ..< 10) }
 
         val webResponse = openWeatherClient.getTodayAirQuality(
             lon = request.x,
             lat = request.y,
-            start = Timestamp.valueOf(today.atStartOfDay()).time.toString(),
-            end = Timestamp.valueOf(today.plusDays(1).atStartOfDay()).time.toString(),
+            start = startDay,
+            end = endDay,
             appid = openWeatherProperties.key
         )
 
