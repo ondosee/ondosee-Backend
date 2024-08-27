@@ -7,7 +7,9 @@ import com.ondosee.thirdparty.openweather.client.OpenWeatherClient
 import com.ondosee.thirdparty.openweather.data.properties.OpenWeatherProperties
 import com.ondosee.thirdparty.openweather.mapper.toResponse
 import org.springframework.stereotype.Component
+import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.LocalTime
 import java.time.ZoneId
 
 @Component
@@ -16,18 +18,17 @@ class OpenWeatherAdapter(
     private val openWeatherProperties: OpenWeatherProperties
 ) : AirQualityPort {
     override fun getTodayAirQuality(request: GetTodayAirQualityRequestData): List<GetTodayAirQualityResponseData> {
-        val startDay = LocalDateTime.now().minusHours(9).toLocalDate().atStartOfDay()
+        val start = LocalDateTime.of(LocalDate.now(), LocalTime.of(0, 0))
             .run { atZone(ZoneId.systemDefault()).toInstant() }.epochSecond
 
-
-        val endDay = LocalDateTime.now().plusDays(1).minusHours(8).toLocalDate().atStartOfDay()
+        val end = LocalDateTime.of(LocalDate.now(), LocalTime.of(23, 0))
             .run { atZone(ZoneId.systemDefault()).toInstant() }.epochSecond
 
         val webResponse = openWeatherClient.getTodayAirQuality(
             lon = request.x,
             lat = request.y,
-            start = startDay,
-            end = endDay,
+            start = start,
+            end = end,
             appid = openWeatherProperties.key
         )
 
