@@ -9,19 +9,19 @@ enum class Significant {
     RAIN,
     GALE,
 
-    BEST10,
-    GOOD10,
-    FAIR10,
-    AVERAGE10,
-    POOR10,
-    BAD10,
-    WORST10,
+    BEST_10,
+    GOOD_10,
+    FAIR_10,
+    AVERAGE_10,
+    POOR_10,
+    BAD_10,
+    WORST_10,
 
-    BEST25,
-    GOOD25,
-    FAIR25,
-    AVERAGE25,
-    POOR25,
-    BAD25,
-    WORST25
+    BEST_25,
+    GOOD_25,
+    FAIR_25,
+    AVERAGE_25,
+    POOR_25,
+    BAD_25,
+    WORST_25
 }

@@ -88,13 +88,13 @@ class WeatherServiceImpl(
         val pm10Max = pm10.value.maxBy { it.value }.value
 
         when{
-            pm10Max <= 15 -> Significant.BEST10
-            pm10Max <= 30 -> Significant.GOOD10
-            pm10Max <= 40 -> Significant.FAIR10
-            pm10Max <= 50 -> Significant.AVERAGE10
-            pm10Max <= 75 -> Significant.POOR10
-            pm10Max <= 100 -> Significant.BAD10
-            else -> Significant.WORST10
+            pm10Max <= 15 -> Significant.BEST_10
+            pm10Max <= 30 -> Significant.GOOD_10
+            pm10Max <= 40 -> Significant.FAIR_10
+            pm10Max <= 50 -> Significant.AVERAGE_10
+            pm10Max <= 75 -> Significant.POOR_10
+            pm10Max <= 100 -> Significant.BAD_10
+            else -> Significant.WORST_10
         }.let { pm10.toResponse(it) }
          .run(significant::add)
 
@@ -102,13 +102,13 @@ class WeatherServiceImpl(
         val pm25Max = pm25.value.maxBy { it.value }.value
 
         when{
-            pm25Max <= 7 -> Significant.BEST25
-            pm25Max <= 15 -> Significant.GOOD25
-            pm25Max <= 20 -> Significant.FAIR25
-            pm25Max <= 25 -> Significant.AVERAGE25
-            pm25Max <= 38 -> Significant.POOR25
-            pm25Max <= 50 -> Significant.BAD25
-            else -> Significant.WORST25
+            pm25Max <= 7 -> Significant.BEST_25
+            pm25Max <= 15 -> Significant.GOOD_25
+            pm25Max <= 20 -> Significant.FAIR_25
+            pm25Max <= 25 -> Significant.AVERAGE_25
+            pm25Max <= 38 -> Significant.POOR_25
+            pm25Max <= 50 -> Significant.BAD_25
+            else -> Significant.WORST_25
         }.let { pm25.toResponse(it) }
          .run(significant::add)
 
