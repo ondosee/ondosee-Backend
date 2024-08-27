@@ -4,6 +4,7 @@ import com.ondosee.common.spi.LocationPort
 import com.ondosee.domain.location.presentation.data.res.SearchLocationResponseData
 import com.ondosee.domain.location.presentation.data.res.SearchLocationsByKeywordResponseData
 import com.ondosee.domain.location.presentation.data.res.SearchPageResponseData
+import com.ondosee.domain.location.service.data.req.SearchDistrictsRequestData
 import org.springframework.stereotype.Service
 
 @Service
@@ -11,7 +12,12 @@ class LocationServiceImpl(
     private val locationPort: LocationPort
 ) : LocationService {
     override fun searchLocationsByKeyword(keyword: String, page: Int): SearchLocationsByKeywordResponseData {
-        val districts = locationPort.searchDistricts(keyword, page)
+        val districts = locationPort.searchDistricts(
+            SearchDistrictsRequestData(
+                query = keyword,
+                page = page
+            )
+        )
 
         val pageData = districts.page.run {
             SearchPageResponseData(
