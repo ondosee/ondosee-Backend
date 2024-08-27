@@ -20,8 +20,7 @@ class WeatherServiceImpl(
     override fun queryTodayWeatherSignificant(request: QueryTodayWeatherSignificantRequestData): QueryTodayWeatherSignificantResponseData {
         val weather = GetTodayWeatherRequestData(
             x = request.x,
-            y = request.y,
-            location = request.location
+            y = request.y
         ).run(weatherPort::getTodayWeather)
 
         var precipitationProbability: List<GetTodayWeatherResponseData.TimeZoneResponseData>? = null
