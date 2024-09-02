@@ -1,10 +1,11 @@
 package com.ondosee.common.spi.airquality.data.res
 
-import com.ondosee.domain.weather.service.data.enums.Element
+import com.ondosee.common.spi.airquality.data.enums.AirElement
+
 import java.time.LocalTime
 
 data class GetTodayAirQualityResponseData(
-    val element: Element,
+    val airElement: AirElement,
     val value: List<TimeZoneResponseData>
 ) {
     data class TimeZoneResponseData(
