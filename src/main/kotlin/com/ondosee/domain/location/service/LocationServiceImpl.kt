@@ -1,11 +1,11 @@
 package com.ondosee.domain.location.service
 
-import com.ondosee.common.spi.LocationPort
+import com.ondosee.common.spi.location.LocationPort
 import com.ondosee.domain.location.presentation.web.req.SearchLocationsByKeywordWebRequest
 import com.ondosee.domain.location.presentation.web.res.SearchLocationsByKeywordWebResponse
 import com.ondosee.domain.location.presentation.web.res.SearchLocationsByKeywordWebResponse.Location
 import com.ondosee.domain.location.presentation.web.res.SearchLocationsByKeywordWebResponse.Page
-import com.ondosee.domain.location.service.data.req.SearchDistrictsRequestData
+import com.ondosee.common.spi.location.data.req.SearchDistrictsRequestData
 import org.springframework.stereotype.Service
 
 @Service

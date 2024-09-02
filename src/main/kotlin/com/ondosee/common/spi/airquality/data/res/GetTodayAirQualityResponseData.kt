@@ -1,4 +1,4 @@
-package com.ondosee.domain.airquality.service.data.res
+package com.ondosee.common.spi.airquality.data.res
 
 import com.ondosee.domain.weather.service.data.enums.Element
 import java.time.LocalTime

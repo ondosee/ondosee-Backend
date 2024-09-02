@@ -1,15 +1,15 @@
 package com.ondosee.domain.weather.service
 
-import com.ondosee.common.spi.AirQualityPort
-import com.ondosee.common.spi.WeatherPort
-import com.ondosee.domain.airquality.service.data.req.GetTodayAirQualityRequestData
-import com.ondosee.domain.airquality.service.data.res.GetTodayAirQualityResponseData
+import com.ondosee.common.spi.airquality.AirQualityPort
+import com.ondosee.common.spi.weather.WeatherPort
+import com.ondosee.common.spi.airquality.data.req.GetTodayAirQualityRequestData
+import com.ondosee.common.spi.airquality.data.res.GetTodayAirQualityResponseData
 import com.ondosee.domain.weather.presentation.data.enums.Significant
 import com.ondosee.domain.weather.presentation.data.req.QueryTodayWeatherSignificantRequestData
 import com.ondosee.domain.weather.presentation.data.res.QueryTodayWeatherSignificantResponseData
-import com.ondosee.domain.weather.service.data.enums.Element
-import com.ondosee.domain.weather.service.data.req.GetTodayWeatherRequestData
-import com.ondosee.domain.weather.service.data.res.GetTodayWeatherResponseData
+import com.ondosee.common.spi.weather.data.enums.Element
+import com.ondosee.common.spi.weather.data.req.GetTodayWeatherRequestData
+import com.ondosee.common.spi.weather.data.res.GetTodayWeatherResponseData
 import org.springframework.stereotype.Service
 
 @Service
@@ -18,36 +18,36 @@ class WeatherServiceImpl(
     private val airQualityPort: AirQualityPort
 ) : WeatherService {
     override fun queryTodayWeatherSignificant(request: QueryTodayWeatherSignificantRequestData): QueryTodayWeatherSignificantResponseData {
-        val weather = GetTodayWeatherRequestData(
+        val weather = com.ondosee.common.spi.weather.data.req.GetTodayWeatherRequestData(
             x = request.x,
             y = request.y
         ).run(weatherPort::getTodayWeather)
 
-        var precipitationProbability: List<GetTodayWeatherResponseData.TimeZoneResponseData>? = null
-        var sky: List<GetTodayWeatherResponseData.TimeZoneResponseData>? = null
+        var precipitationProbability: List<com.ondosee.common.spi.weather.data.res.GetTodayWeatherResponseData.TimeZoneResponseData>? = null
+        var sky: List<com.ondosee.common.spi.weather.data.res.GetTodayWeatherResponseData.TimeZoneResponseData>? = null
 
         val significant = weather.mapNotNull { unit ->
             when (unit.element) {
-                Element.TEMPERATURE_FOR_1_HOUR -> {
+                com.ondosee.common.spi.weather.data.enums.Element.TEMPERATURE_FOR_1_HOUR -> {
                     if(unit.value.any { it.value >= 33L })
                         Significant.HEAT_WAVE
                     else if(unit.value.any { it.value <= 10L})
                         Significant.COLD_WAVE
                     else null
                 }
-                Element.HUMIDITY -> {
+                com.ondosee.common.spi.weather.data.enums.Element.HUMIDITY -> {
                     takeIf { unit.value.any { it.value >= 35L } }
                         ?.let { Significant.DROUGHT }
                 }
-                Element.WIND_SPEED -> {
+                com.ondosee.common.spi.weather.data.enums.Element.WIND_SPEED -> {
                     takeIf { unit.value.any { it.value >= 14L } }
                         ?.let { Significant.GALE }
                 }
-                Element.PRECIPITATION_PROBABILITY -> {
+                com.ondosee.common.spi.weather.data.enums.Element.PRECIPITATION_PROBABILITY -> {
                     precipitationProbability = unit.value
                     null
                 }
-                Element.SKY -> {
+                com.ondosee.common.spi.weather.data.enums.Element.SKY -> {
                     sky = unit.value
                     null
                 }
@@ -83,7 +83,7 @@ class WeatherServiceImpl(
             y = request.y
         ).run(airQualityPort::getTodayAirQuality)
 
-        val pm10 = airQuality.find { it.element == Element.PARTICULATE_MATTER_10 }!!
+        val pm10 = airQuality.find { it.element == com.ondosee.common.spi.weather.data.enums.Element.PARTICULATE_MATTER_10 }!!
         val pm10Max = pm10.value.maxBy { it.value }.value
 
         when{
@@ -97,7 +97,7 @@ class WeatherServiceImpl(
         }.let { pm10.toResponse(it) }
          .run(significant::add)
 
-        val pm25 = airQuality.find { it.element == Element.PARTICULATE_MATTER_25 }!!
+        val pm25 = airQuality.find { it.element == com.ondosee.common.spi.weather.data.enums.Element.PARTICULATE_MATTER_25 }!!
         val pm25Max = pm25.value.maxBy { it.value }.value
 
         when{
@@ -118,7 +118,7 @@ class WeatherServiceImpl(
         return response
     }
 
-    private fun GetTodayWeatherResponseData.toResponse(significant: Significant) =
+    private fun com.ondosee.common.spi.weather.data.res.GetTodayWeatherResponseData.toResponse(significant: Significant) =
         QueryTodayWeatherSignificantResponseData.SignificantResponseData(
             significant = significant,
             timeZone = value.map {
@@ -129,7 +129,7 @@ class WeatherServiceImpl(
             }
         )
 
-    private fun  GetTodayAirQualityResponseData.toResponse(significant: Significant) =
+    private fun GetTodayAirQualityResponseData.toResponse(significant: Significant) =
         QueryTodayWeatherSignificantResponseData.SignificantResponseData(
             significant = significant,
             timeZone = value.map {

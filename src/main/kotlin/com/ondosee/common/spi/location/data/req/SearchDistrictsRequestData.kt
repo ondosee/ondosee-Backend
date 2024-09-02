@@ -1,4 +1,4 @@
-package com.ondosee.domain.location.service.data.req
+package com.ondosee.common.spi.location.data.req
 
 data class SearchDistrictsRequestData(
     val query: String,

@@ -1,8 +1,8 @@
 package com.ondosee.thirdparty.dataportal
 
-import com.ondosee.common.spi.WeatherPort
-import com.ondosee.domain.weather.service.data.req.GetTodayWeatherRequestData
-import com.ondosee.domain.weather.service.data.res.GetTodayWeatherResponseData
+import com.ondosee.common.spi.weather.WeatherPort
+import com.ondosee.common.spi.weather.data.req.GetTodayWeatherRequestData
+import com.ondosee.common.spi.weather.data.res.GetTodayWeatherResponseData
 import com.ondosee.global.error.exception.ThirdPartyException
 import com.ondosee.thirdparty.dataportal.client.DataPortalClient
 import com.ondosee.thirdparty.dataportal.data.mapper.toResponse
@@ -16,7 +16,7 @@ import kotlin.math.*
 class DataPortalAdapter(
     val dataPortalProperties: DataPorterProperties,
     val dataPortalClient: DataPortalClient
-) : WeatherPort {
+) : com.ondosee.common.spi.weather.WeatherPort {
 
     companion object {
         const val XO = 43
@@ -31,7 +31,7 @@ class DataPortalAdapter(
         const val OLAT = 38.0 * DEGRAD
     }
 
-    override fun getTodayWeather(request: GetTodayWeatherRequestData): List<GetTodayWeatherResponseData> {
+    override fun getTodayWeather(request: com.ondosee.common.spi.weather.data.req.GetTodayWeatherRequestData): List<com.ondosee.common.spi.weather.data.res.GetTodayWeatherResponseData> {
         val (nx, ny) = toNXY(
             request.x,
             request.y
