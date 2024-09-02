@@ -6,24 +6,28 @@ import com.ondosee.common.spi.airquality.data.req.GetTodayAirQualityRequestData
 import com.ondosee.common.spi.airquality.data.res.GetTodayAirQualityResponseData
 import com.ondosee.common.spi.weather.WeatherPort
 import com.ondosee.common.spi.weather.data.enums.WeatherElement
-import com.ondosee.domain.weather.presentation.data.enums.Significant
-import com.ondosee.domain.weather.presentation.data.req.QueryTodayWeatherSignificantRequestData
-import com.ondosee.domain.weather.presentation.data.res.QueryTodayWeatherSignificantResponseData
+import com.ondosee.common.spi.weather.data.res.GetTodayWeatherResponseData
+import com.ondosee.domain.weather.presentation.web.enums.Significant
+import com.ondosee.domain.weather.presentation.web.req.QueryTodayWeatherSignificantWebRequest
+import com.ondosee.domain.weather.presentation.web.res.QueryTodayWeatherSignificantWebResponse
 import org.springframework.stereotype.Service
+import com.ondosee.common.spi.weather.data.res.GetTodayWeatherResponseData.TimeZoneResponseData as WeatherTimeZoneResponseData
+import com.ondosee.domain.weather.presentation.web.res.QueryTodayWeatherSignificantWebResponse.SignificantResponseData as SignificantWebResponse
+import com.ondosee.domain.weather.presentation.web.res.QueryTodayWeatherSignificantWebResponse.TimeZoneResponseData as TimeZoneWebData
 
 @Service
 class WeatherServiceImpl(
     private val weatherPort: WeatherPort,
     private val airQualityPort: AirQualityPort
 ) : WeatherService {
-    override fun queryTodayWeatherSignificant(request: QueryTodayWeatherSignificantRequestData): QueryTodayWeatherSignificantResponseData {
+    override fun queryTodayWeatherSignificant(request: QueryTodayWeatherSignificantWebRequest): QueryTodayWeatherSignificantWebResponse {
         val weather = com.ondosee.common.spi.weather.data.req.GetTodayWeatherRequestData(
             x = request.x,
             y = request.y
         ).run(weatherPort::getTodayWeather)
 
-        var precipitationProbability: List<com.ondosee.common.spi.weather.data.res.GetTodayWeatherResponseData.TimeZoneResponseData>? = null
-        var sky: List<com.ondosee.common.spi.weather.data.res.GetTodayWeatherResponseData.TimeZoneResponseData>? = null
+        var precipitationProbability: List<WeatherTimeZoneResponseData>? = null
+        var sky: List<WeatherTimeZoneResponseData>? = null
 
         val significant = weather.mapNotNull { unit ->
             when (unit.weatherElement) {
@@ -56,20 +60,20 @@ class WeatherServiceImpl(
 
         if(precipitationProbability?.any { it.value >= 40L } == true) {
             if(sky?.any { it.value == 1L || it.value == 2L || it.value == 4L } == true)
-                QueryTodayWeatherSignificantResponseData.SignificantResponseData(
+                SignificantWebResponse(
                     significant = Significant.RAIN,
                     timeZone = precipitationProbability!!.map {
-                        QueryTodayWeatherSignificantResponseData.TimeZoneResponseData(
+                        TimeZoneWebData(
                             time = it.time,
                             value = "${it.value}"
                         )
                     }
                 ).run(significant::add)
             if(sky?.any { it.value == 2L || it.value == 3L } == true)
-                QueryTodayWeatherSignificantResponseData.SignificantResponseData(
+                SignificantWebResponse(
                     significant = Significant.SNOW,
                     timeZone = precipitationProbability!!.map {
-                        QueryTodayWeatherSignificantResponseData.TimeZoneResponseData(
+                        TimeZoneWebData(
                             time = it.time,
                             value = "${it.value}"
                         )
@@ -110,18 +114,18 @@ class WeatherServiceImpl(
         }.let { pm25.toResponse(it) }
          .run(significant::add)
 
-        val response = QueryTodayWeatherSignificantResponseData(
+        val response = QueryTodayWeatherSignificantWebResponse(
             weathers = significant,
         )
 
         return response
     }
 
-    private fun com.ondosee.common.spi.weather.data.res.GetTodayWeatherResponseData.toResponse(significant: Significant) =
-        QueryTodayWeatherSignificantResponseData.SignificantResponseData(
+    private fun GetTodayWeatherResponseData.toResponse(significant: Significant) =
+        SignificantWebResponse(
             significant = significant,
             timeZone = value.map {
-                QueryTodayWeatherSignificantResponseData.TimeZoneResponseData(
+                TimeZoneWebData(
                     time = it.time,
                     value = "${it.value}"
                 )
@@ -129,10 +133,10 @@ class WeatherServiceImpl(
         )
 
     private fun GetTodayAirQualityResponseData.toResponse(significant: Significant) =
-        QueryTodayWeatherSignificantResponseData.SignificantResponseData(
+        SignificantWebResponse(
             significant = significant,
             timeZone = value.map {
-                QueryTodayWeatherSignificantResponseData.TimeZoneResponseData(
+                TimeZoneWebData(
                     time = it.time,
                     value = "${it.value}"
                 )

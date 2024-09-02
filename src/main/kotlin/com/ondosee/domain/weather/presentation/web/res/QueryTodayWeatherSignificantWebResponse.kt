@@ -1,9 +1,9 @@
-package com.ondosee.domain.weather.presentation.data.res
+package com.ondosee.domain.weather.presentation.web.res
 
-import com.ondosee.domain.weather.presentation.data.enums.Significant
+import com.ondosee.domain.weather.presentation.web.enums.Significant
 import java.time.LocalTime
 
-data class QueryTodayWeatherSignificantResponseData(
+data class QueryTodayWeatherSignificantWebResponse(
     val weathers: List<SignificantResponseData>
 ) {
     data class SignificantResponseData(

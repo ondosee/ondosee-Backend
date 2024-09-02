@@ -1,4 +1,4 @@
-package com.ondosee.domain.weather.presentation.data.enums
+package com.ondosee.domain.weather.presentation.web.enums
 
 enum class Significant {
     HEAT_WAVE,
