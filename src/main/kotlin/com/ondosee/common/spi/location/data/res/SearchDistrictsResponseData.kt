@@ -4,22 +4,22 @@ import com.ondosee.thirdparty.vworld.data.enums.ResponseStatus
 
 data class SearchDistrictsResponseData(
     val status: ResponseStatus,
-    val page: PageResponseData,
-    val result: List<ResultResponseData>
+    val page: Page,
+    val results: List<Result>
 ) {
-    data class ResultResponseData(
-        val title: String,
-        val point: PointResponseData
-    )
-
-    data class PointResponseData(
-        val x: String,
-        val y: String
-    )
-
-    data class PageResponseData(
+    data class Page(
         val total: Int,
         val current: Int,
         val size: Int
+    )
+
+    data class Result(
+        val title: String,
+        val point: Point
+    )
+
+    data class Point(
+        val x: Double,
+        val y: Double
     )
 }
