@@ -16,7 +16,7 @@ import kotlin.math.*
 class DataPortalAdapter(
     val dataPortalProperties: DataPorterProperties,
     val dataPortalClient: DataPortalClient
-) : com.ondosee.common.spi.weather.WeatherPort {
+) : WeatherPort {
 
     companion object {
         const val XO = 43
@@ -31,7 +31,7 @@ class DataPortalAdapter(
         const val OLAT = 38.0 * DEGRAD
     }
 
-    override fun getTodayWeather(request: com.ondosee.common.spi.weather.data.req.GetTodayWeatherRequestData): List<com.ondosee.common.spi.weather.data.res.GetTodayWeatherResponseData> {
+    override fun getTodayWeather(request: GetTodayWeatherRequestData): List<GetTodayWeatherResponseData> {
         val (nx, ny) = toNXY(
             request.x,
             request.y

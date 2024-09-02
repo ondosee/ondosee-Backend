@@ -1,10 +1,10 @@
 package com.ondosee.common.spi.weather.data.res
 
-import com.ondosee.common.spi.weather.data.enums.Element
+import com.ondosee.common.spi.weather.data.enums.WeatherElement
 import java.time.LocalTime
 
 data class GetTodayWeatherResponseData(
-    val element: Element,
+    val weatherElement: WeatherElement,
     val value: List<TimeZoneResponseData>
 ) {
     data class TimeZoneResponseData(

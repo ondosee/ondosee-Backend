@@ -1,6 +1,6 @@
 package com.ondosee.common.spi.weather.data.enums
 
-enum class Element(
+enum class WeatherElement(
     Description: String
 ) {
     PRECIPITATION_PROBABILITY("강수확률"),
@@ -12,7 +12,5 @@ enum class Element(
     TEMPERATURE_FOR_1_HOUR("1시간 기온"),
     LOWEST_DAILY_TEMPERATURE("일 최저기온"),
     HIGHEST_DAILY_TEMPERATURE("일 최고기온"),
-    WIND_SPEED("풍속"),
-    PARTICULATE_MATTER_10("미세먼지"),
-    PARTICULATE_MATTER_25("초미세먼지")
+    WIND_SPEED("풍속")
 }

@@ -1,8 +1,8 @@
 package com.ondosee.thirdparty.openweather.mapper
 
+import com.ondosee.common.spi.airquality.data.enums.AirElement
 import com.ondosee.common.spi.airquality.data.res.GetTodayAirQualityResponseData
 import com.ondosee.common.spi.airquality.data.res.GetTodayAirQualityResponseData.TimeZoneResponseData
-import com.ondosee.common.spi.weather.data.enums.Element
 import com.ondosee.thirdparty.openweather.data.web.GetTodayAirQualityOpenWeatherWebResponse
 import java.time.Instant
 import java.time.LocalDateTime
@@ -30,11 +30,11 @@ fun GetTodayAirQualityOpenWeatherWebResponse.toResponse(): List<GetTodayAirQuali
 
     return listOf(
         GetTodayAirQualityResponseData(
-            element = com.ondosee.common.spi.weather.data.enums.Element.PARTICULATE_MATTER_10,
+            airElement = AirElement.PARTICULATE_MATTER_10,
             value = pm10
         ),
         GetTodayAirQualityResponseData(
-            element = com.ondosee.common.spi.weather.data.enums.Element.PARTICULATE_MATTER_25,
+            airElement = AirElement.PARTICULATE_MATTER_25,
             value = pm25
         )
     )
