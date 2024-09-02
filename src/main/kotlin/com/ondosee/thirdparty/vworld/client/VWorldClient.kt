@@ -1,6 +1,6 @@
 package com.ondosee.thirdparty.vworld.client
 
-import com.ondosee.thirdparty.vworld.data.web.SearchDistrictVWoldWebResponse
+import com.ondosee.thirdparty.vworld.data.web.SearchDistrictVWorldWebResponse
 import org.springframework.cache.annotation.Cacheable
 import org.springframework.cloud.openfeign.FeignClient
 import org.springframework.web.bind.annotation.GetMapping
@@ -25,6 +25,6 @@ interface VWorldClient {
         @RequestParam category: String,
         @RequestParam request: String,
         @RequestParam key: String
-    ): SearchDistrictVWoldWebResponse
+    ): SearchDistrictVWorldWebResponse
 }
 

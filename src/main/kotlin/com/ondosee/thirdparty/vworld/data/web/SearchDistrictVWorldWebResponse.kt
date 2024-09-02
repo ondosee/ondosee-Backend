@@ -5,8 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.ondosee.thirdparty.vworld.data.enums.ResponseCode
 import com.ondosee.thirdparty.vworld.data.enums.ResponseStatus
 
-
-data class SearchDistrictVWoldWebResponse @JsonCreator constructor(
+data class SearchDistrictVWorldWebResponse @JsonCreator constructor(
     @JsonProperty("response")
     val response: SearchDistrictWebResponse
 ) {
