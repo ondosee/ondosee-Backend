@@ -1,4 +1,4 @@
-package com.ondosee.domain.weather.service.data.enums
+package com.ondosee.common.spi.weather.data.enums
 
 enum class Element(
     Description: String

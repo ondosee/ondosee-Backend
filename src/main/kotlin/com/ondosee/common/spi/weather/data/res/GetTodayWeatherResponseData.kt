@@ -1,6 +1,6 @@
-package com.ondosee.domain.weather.service.data.res
+package com.ondosee.common.spi.weather.data.res
 
-import com.ondosee.domain.weather.service.data.enums.Element
+import com.ondosee.common.spi.weather.data.enums.Element
 import java.time.LocalTime
 
 data class GetTodayWeatherResponseData(
