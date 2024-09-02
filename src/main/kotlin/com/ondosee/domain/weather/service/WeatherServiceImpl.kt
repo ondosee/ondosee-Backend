@@ -6,6 +6,7 @@ import com.ondosee.common.spi.airquality.data.req.GetTodayAirQualityRequestData
 import com.ondosee.common.spi.airquality.data.res.GetTodayAirQualityResponseData
 import com.ondosee.common.spi.weather.WeatherPort
 import com.ondosee.common.spi.weather.data.enums.WeatherElement
+import com.ondosee.common.spi.weather.data.req.GetTodayWeatherRequestData
 import com.ondosee.common.spi.weather.data.res.GetTodayWeatherResponseData
 import com.ondosee.domain.weather.presentation.web.enums.Significant
 import com.ondosee.domain.weather.presentation.web.req.QueryTodayWeatherSignificantWebRequest
@@ -21,7 +22,7 @@ class WeatherServiceImpl(
     private val airQualityPort: AirQualityPort
 ) : WeatherService {
     override fun queryTodayWeatherSignificant(request: QueryTodayWeatherSignificantWebRequest): QueryTodayWeatherSignificantWebResponse {
-        val weather = com.ondosee.common.spi.weather.data.req.GetTodayWeatherRequestData(
+        val weather = GetTodayWeatherRequestData(
             x = request.x,
             y = request.y
         ).run(weatherPort::getTodayWeather)
