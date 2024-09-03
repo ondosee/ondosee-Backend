@@ -27,11 +27,11 @@ class LocationServiceImpl(
             )
         }
 
-        val locations = districts.result.map { location ->
+        val locations = districts.results.map { location ->
             Location(
                 title = location.title,
-                x = location.point.x,
-                y = location.point.y
+                x = "${location.point.x}",
+                y = "${location.point.y}"
             )
         }
 
