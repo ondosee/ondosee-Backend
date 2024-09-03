@@ -46,25 +46,27 @@ class WeatherServiceImpl(
         weather.map { unit ->
             when(unit.weatherElement) {
                 WeatherElement.TEMPERATURE_FOR_1_HOUR -> {
-                    unit.value.forEach { valueUnit ->
-                        if(valueUnit.value >= 33L) unit.toResponse(Significant.HEAT_WAVE).run(weatherResponse::add)
-                        else if(valueUnit.value <= 10L) unit.toResponse(Significant.COLD_WAVE).run(weatherResponse::add)
-                    }
+                    val maxTemp = unit.value.maxBy { it.value }.value
+                    val minTemp = unit.value.minBy { it.value }.value
+
+                    if(maxTemp >= 33L) unit.toResponse(Significant.HEAT_WAVE).run(weatherResponse::add)
+                    if(minTemp <= 10L) unit.toResponse(Significant.COLD_WAVE).run(weatherResponse::add)
                 }
                 WeatherElement.HUMIDITY -> {
-                    if(unit.value.any { it.value >= 35L }) unit.toResponse(Significant.DROUGHT).run(weatherResponse::add)
+                    if(unit.value.any { it.value <= 35L }) unit.toResponse(Significant.DROUGHT).run(weatherResponse::add)
                 }
                 WeatherElement.WIND_SPEED -> {
                     if(unit.value.any { it.value >= 14L }) unit.toResponse(Significant.GALE).run(weatherResponse::add)
                 }
                 WeatherElement.PRECIPITATION_PROBABILITY -> {
                     if(unit.value.any { it.value >= 40L }) {
-                        val sky = weather.find { it.weatherElement == WeatherElement.SKY }!!
+                        val sky = weather.find { it.weatherElement == WeatherElement.PRECIPITATION_TYPE }!!
 
-                        sky.value.forEach { valueUnit ->
-                            if(valueUnit.value == 1L || valueUnit.value == 2L || valueUnit.value == 4L) unit.toResponse(Significant.RAIN).run(weatherResponse::add)
-                            if(valueUnit.value == 2L || valueUnit.value == 3L) unit.toResponse(Significant.SNOW).run(weatherResponse::add)
-                        }
+                        val isRain = sky.value.any{ it.value == 1L || it.value == 2L || it.value == 4L }
+                        val isSnow = sky.value.any{ it.value == 2L || it.value == 3L }
+
+                        if(isRain) unit.toResponse(Significant.RAIN).run(weatherResponse::add)
+                        if(isSnow) unit.toResponse(Significant.SNOW).run(weatherResponse::add)
                     }
                 }
                 else -> {}
