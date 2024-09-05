@@ -1,8 +1,8 @@
 package com.ondosee.thirdparty.dataportal
 
-import com.ondosee.common.spi.WeatherPort
-import com.ondosee.domain.weather.service.data.req.GetTodayWeatherRequestData
-import com.ondosee.domain.weather.service.data.res.GetTodayWeatherResponseData
+import com.ondosee.common.spi.weather.WeatherPort
+import com.ondosee.common.spi.weather.data.req.GetTodayWeatherRequestData
+import com.ondosee.common.spi.weather.data.res.GetTodayWeatherResponseData
 import com.ondosee.global.error.exception.ThirdPartyException
 import com.ondosee.thirdparty.dataportal.client.DataPortalClient
 import com.ondosee.thirdparty.dataportal.data.mapper.toResponse

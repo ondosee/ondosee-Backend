@@ -5,65 +5,65 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.ondosee.thirdparty.vworld.data.enums.ResponseCode
 import com.ondosee.thirdparty.vworld.data.enums.ResponseStatus
 
-
-data class SearchDistrictVWoldWebResponse @JsonCreator constructor(
+data class SearchDistrictVWorldWebResponse @JsonCreator constructor(
     @JsonProperty("response")
     val response: SearchDistrictWebResponse
-)
+) {
+    data class SearchDistrictWebResponse @JsonCreator constructor(
+        @JsonProperty("status")
+        val status: ResponseStatus,
 
-data class SearchDistrictWebResponse @JsonCreator constructor(
-    @JsonProperty("status")
-    val status: ResponseStatus,
+        @JsonProperty("page")
+        val page: Page?,
 
-    @JsonProperty("page")
-    val page: Page?,
+        @JsonProperty("result")
+        val result: SearchDistrictResultWebResponse?,
 
-    @JsonProperty("result")
-    val result: SearchDistrictResultWebResponse?,
+        @JsonProperty("error")
+        val error: SearchDistrictErrorWebResponse?
+    )
 
-    @JsonProperty("error")
-    val error: SearchDistrictErrorWebResponse?
-)
+    data class Page @JsonCreator constructor(
+        @JsonProperty("total")
+        val total: Int,
 
-data class Page @JsonCreator constructor(
-    @JsonProperty("total")
-    val total: Int,
+        @JsonProperty("current")
+        val current: Int,
 
-    @JsonProperty("current")
-    val current: Int,
+        @JsonProperty("size")
+        val size: Int
+    )
 
-    @JsonProperty("size")
-    val size: Int
-)
+    data class SearchDistrictErrorWebResponse @JsonCreator constructor(
+        @JsonProperty("level")
+        val level: Int,
 
-data class SearchDistrictErrorWebResponse @JsonCreator constructor(
-    @JsonProperty("level")
-    val level: Int,
+        @JsonProperty("code")
+        val code: ResponseCode,
 
-    @JsonProperty("code")
-    val code: ResponseCode,
+        @JsonProperty("text")
+        val text: String
+    )
 
-    @JsonProperty("text")
-    val text: String
-)
+    data class SearchDistrictResultWebResponse @JsonCreator constructor(
+        @JsonProperty("items")
+        val items: List<Item>
+    )
 
-data class SearchDistrictResultWebResponse @JsonCreator constructor(
-    @JsonProperty("items")
-    val items: List<Item>
-)
+    data class Item @JsonCreator constructor(
+        @JsonProperty("title")
+        val title: String,
 
-data class Item @JsonCreator constructor(
-    @JsonProperty("title")
-    val title: String,
+        @JsonProperty("point")
+        val point: Point
+    )
 
-    @JsonProperty("point")
-    val point: Point
-)
+    data class Point @JsonCreator constructor(
+        @JsonProperty("x")
+        val x: Double,
 
-data class Point @JsonCreator constructor(
-    @JsonProperty("x")
-    val x: String,
+        @JsonProperty("y")
+        val y: Double
+    )
 
-    @JsonProperty("y")
-    val y: String
-)
+}

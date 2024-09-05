@@ -1,8 +1,8 @@
 package com.ondosee.domain.weather.service
 
-import com.ondosee.domain.weather.presentation.data.req.QueryTodayWeatherSignificantRequestData
-import com.ondosee.domain.weather.presentation.data.res.QueryTodayWeatherSignificantResponseData
+import com.ondosee.domain.weather.presentation.web.req.QueryTodayWeatherSignificantWebRequest
+import com.ondosee.domain.weather.presentation.web.res.QueryTodayWeatherSignificantWebResponse
 
 interface WeatherService {
-    fun queryTodayWeatherSignificant(request: QueryTodayWeatherSignificantRequestData): QueryTodayWeatherSignificantResponseData
+    fun queryTodayWeatherSignificant(request: QueryTodayWeatherSignificantWebRequest): QueryTodayWeatherSignificantWebResponse
 }
