@@ -1,6 +1,6 @@
 package com.ondosee.domain.notification.domain.entity
 
-import java.time.ZonedDateTime
+import java.time.LocalDateTime
 import javax.persistence.*
 
 @Entity
@@ -15,5 +15,5 @@ data class Notification(
     val deviceToken: String,
 
     @Column(name = "alarm_time")
-    var alarmTime : ZonedDateTime?
+    var alarmTime: LocalDateTime?
 )
