@@ -22,10 +22,14 @@ jobs:
         uses: getong/mariadb-action@v1.11
         with:
           host-port: 3306
-          container port: 3306
           mariadb-database: 'ondosee'
           mariadb-user: 'ondosee-admin'
           mariadb-password: ${{ secrets.MARIA_DB_PASSWORD }}
+
+      - name: Grant MariaDB permissions
+        run: |
+          sudo apt-get install mariadb-client
+          mysql -h 127.0.0.1 -u root -e "GRANT ALL PRIVILEGES ON *.* TO 'ondosee-admin'@'%' IDENTIFIED BY '${{ secrets.MARIA_DB_PASSWORD }}'; FLUSH PRIVILEGES;"    
 
       - name: Set up JDK 11
         uses: actions/setup-java@v3
