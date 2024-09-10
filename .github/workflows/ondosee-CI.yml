@@ -23,7 +23,7 @@ jobs:
         with:
           host-port: 3306
           mariadb-database: 'ondosee'
-          mariadb-user: 'ondosee-admin'
+          mariadb-user: ${{ secrets.MARIA_DB_USER }}
           mariadb-password: ${{ secrets.MARIA_DB_PASSWORD }}
 
       - name: Set up JDK 11
