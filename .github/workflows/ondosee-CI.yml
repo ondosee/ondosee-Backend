@@ -26,6 +26,11 @@ jobs:
           mariadb-user: 'ondosee-admin'
           mariadb-password: ${{ secrets.MARIA_DB_PASSWORD }}
 
+      - name: Create 'ondosee' database
+        run: |
+          sudo apt-get install mariadb-client
+          mysql -h 127.0.0.1 -u ondosee-admin -p${{ secrets.MARIA_DB_PASSWORD }} -e "CREATE DATABASE IF NOT EXISTS ondosee;"
+
       - name: Grant MariaDB permissions
         run: |
           sudo apt-get install mariadb-client
