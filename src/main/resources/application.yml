@@ -5,6 +5,7 @@ spring:
     host: ${REDIS_HOST:localhost}
     port: ${REDIS_PORT:6379}
 
+
   datasource:
     driver-class-name: ${DB_DRIVER}
     url: ${DB_URL}
