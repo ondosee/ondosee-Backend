@@ -28,7 +28,6 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 	runtimeOnly("org.mariadb.jdbc:mariadb-java-client")
-	runtimeOnly("com.mysql:mysql-connector-j")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.15.0")
 	implementation("io.github.openfeign:feign-core:11.8")
