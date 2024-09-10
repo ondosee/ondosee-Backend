@@ -22,6 +22,7 @@ jobs:
         uses: getong/mariadb-action@v1.11
         with:
           host-port: 3306
+          container port: 3306
           mariadb-database: 'ondosee'
           mariadb-user: 'ondosee-admin'
           mariadb-password: ${{ secrets.MARIA_DB_PASSWORD }}
