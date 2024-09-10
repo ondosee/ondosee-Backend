@@ -19,7 +19,7 @@ jobs:
           redis-port: 6379
 
       - name: Set up MariaDB
-        uses: devcontainers-contrib/mariadb-action@v1
+        uses: getong/mariadb-action@v1.11
         with:
           host-port: 3306
           mariadb-database: 'ondosee'
