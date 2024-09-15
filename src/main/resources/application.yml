@@ -5,6 +5,21 @@ spring:
     host: ${REDIS_HOST:localhost}
     port: ${REDIS_PORT:6379}
 
+
+  datasource:
+    driver-class-name: ${DB_DRIVER}
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+
+  jpa:
+    hibernate:
+      ddl-auto: ${JPA_DDL_AUTO}
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
 vworld:
   key: ${VWORLD_KEY}
 
