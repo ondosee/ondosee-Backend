@@ -24,15 +24,15 @@ class FcmConfig(
         runCatching {
             URL(fcmProperties.url).openStream().use {
                 Files.copy(it, Paths.get(PATH))
-                val file = File(PATH)
-                if (FirebaseApp.getApps().isEmpty()) {
-                    FirebaseOptions.builder()
-                        .setCredentials(GoogleCredentials.fromStream(file.inputStream()))
-                        .build()
-                        .run(FirebaseApp::initializeApp)
-                }
-                file.delete()
             }
+            val file = File(PATH)
+            if (FirebaseApp.getApps().isEmpty()) {
+                FirebaseOptions.builder()
+                    .setCredentials(GoogleCredentials.fromStream(file.inputStream()))
+                    .build()
+                    .run(FirebaseApp::initializeApp)
+            }
+            file.delete()
         }.onFailure {
             it.printStackTrace()
         }
