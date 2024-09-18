@@ -28,3 +28,19 @@ dataporter:
 
 openweather:
   key: ${OPENWATER_KEY}
+
+fcm:
+  url: ${FCM_URL}
+
+cloud:
+  aws:
+    region:
+      static: ${AWS_REGION}
+    credentials:
+      access-key: ${AWS_ACCESS}
+      secret-key: ${AWS_SECRET}
+    s3:
+      bucket: ${AWS_BUCKET_NAME}
+      url: ${AWS_URL}
+    stack:
+      auto: false

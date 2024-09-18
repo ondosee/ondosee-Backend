@@ -33,6 +33,7 @@ dependencies {
 	implementation("io.github.openfeign:feign-core:11.8")
 	implementation("io.github.openfeign:feign-jackson:11.8")
 	implementation("org.springframework.boot:spring-boot-starter-data-redis")
+	implementation("com.google.firebase:firebase-admin:9.1.1")
 }
 
 dependencyManagement {
