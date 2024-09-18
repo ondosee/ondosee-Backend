@@ -26,10 +26,10 @@ class FcmConfig(
                 Files.copy(it, Paths.get(PATH))
                 val file = File(PATH)
                 if (FirebaseApp.getApps().isEmpty()) {
-                    val options = FirebaseOptions.builder()
+                    FirebaseOptions.builder()
                         .setCredentials(GoogleCredentials.fromStream(file.inputStream()))
                         .build()
-                    FirebaseApp.initializeApp(options)
+                        .run(FirebaseApp::initializeApp)
                 }
                 file.delete()
             }
