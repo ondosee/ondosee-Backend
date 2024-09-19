@@ -15,7 +15,7 @@ class NotificationController(
     private val notificationService: NotificationService
 ) {
     @PostMapping
-    fun setAlarm(@Valid webRequest: SetAlarmWebRequest): ResponseEntity<Void> =
+    fun setAlarm(@Valid webRequest: SetAlarmWebRequest): ResponseEntity<Unit> =
         notificationService.setAlarm(webRequest)
             .let { ResponseEntity.status(HttpStatus.CREATED).build() }
 }
