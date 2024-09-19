@@ -9,9 +9,7 @@ import org.springframework.stereotype.Component
 class QueryNotificationAdapter(
     private val notificationRepository: NotificationRepository
 ) : QueryNotificationPort {
-
-    override fun saveNotification(notification: Notification): Notification {
-
-        return notificationRepository.save(notification)
+    override fun findByDeviceToken(deviceToken: String): Notification? {
+        return notificationRepository.findByDeviceToken(deviceToken)
     }
 }
