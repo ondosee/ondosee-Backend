@@ -8,13 +8,11 @@ data class Notification(
     @Id
     @Column(name = "notification_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long,
+    val id: Long = 0,
 
     @Column(name = "device_token")
-    val deviceToken: String,
+    val deviceToken: String = "",
 
     @Column(name = "alarm_time")
-    val alarmTime: String?
-) {
-    constructor() : this(0, "", null)
-}
+    val alarmTime: String? = null
+)
