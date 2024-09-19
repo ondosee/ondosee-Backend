@@ -15,7 +15,6 @@ class CommandNotificationAdapter(
 
     override fun saveAlarm(deviceToken: String, alarmTime: String) {
         val notification = Notification(
-            id = 0L,
             deviceToken = deviceToken,
             alarmTime = alarmTime
         )
