@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component
 class CommandNotificationAdapter(
     private val notificationRepository: NotificationRepository
 ) : CommandNotificationPort {
-    override fun deleteDeviceToken(notification: Notification) {
-        notificationRepository.delete(notification)
+    override fun deleteByDeviceToken(deviceToken: String) {
+        notificationRepository.deleteByDeviceToken(deviceToken)
     }
 
     override fun saveAlarm(deviceToken: String, alarmTime: String) {
