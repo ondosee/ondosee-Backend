@@ -6,4 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository
 interface NotificationRepository : JpaRepository<Notification, Long> {
     fun existsByDeviceToken(deviceToken: String): Boolean
     fun deleteByDeviceToken(deviceToken: String)
+    fun findByAlarmTime(alarmTime: String): List<Notification>
 }
