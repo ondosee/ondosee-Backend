@@ -40,11 +40,12 @@ class NotificationServiceImpl(
                 writer = "ON°C"
             )
 
-            when (notificationList.size) {
-                1 -> notificationPort.sendSingleNotification(
+            if (notificationList.size == 1) {
+                notificationPort.sendSingleNotification(
                     deviceToken = notificationList.first().deviceToken,
                     notificationAlarm = notificationAlarm
-                ) else ->
+                )
+            } else {
                 notificationPort.sendMultipleNotification(
                     deviceTokens = notificationList.map { it.deviceToken },
                     notificationAlarm = notificationAlarm
